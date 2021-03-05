@@ -1,4 +1,5 @@
 #include "node.h"
+#include <QGraphicsItemAnimation>
 
 
 Node::Node(std::vector<int> coordinates, Node *parent):

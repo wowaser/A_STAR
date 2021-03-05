@@ -16,6 +16,7 @@ class Node: public QObject, public QGraphicsRectItem
 
 {
     Q_OBJECT
+
 public:
     Node(std::vector<int> coordinates, Node* parent = nullptr);
 

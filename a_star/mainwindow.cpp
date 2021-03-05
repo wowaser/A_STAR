@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,6 +37,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui_->comboBox->addItem("Greedy BFS");
 
     ui_->textBrowser->setText("A* guarantees the shortest path");
+
+    QColor back_clr = this->palette().button().color();
+    QString style = QString("border-width: 0px; border-style: solid; background-color: %1").arg(back_clr.name());
+    ui_->graphicsView->setStyleSheet(style);
+
+    ui_->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui_->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 

@@ -6,17 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1325</width>
-    <height>576</height>
+    <width>1353</width>
+    <height>605</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Bahnschrift</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Pathfinding</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="9,2">
     <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="cursor" stdset="0">
+       <cursorShape>CrossCursor</cursorShape>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="60,13">
@@ -36,7 +46,7 @@
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout" stretch="4,0,4,0,4,0,1,1">
+         <layout class="QVBoxLayout" name="verticalLayout" stretch="4,0,0,0,0,0,1,1">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -63,8 +73,27 @@
               <height>30</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Bahnschrift</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;
+background-color: #59CE98}
+
+QPushButton:hover{background-color: #59CEB0}
+</string>
+            </property>
             <property name="text">
-             <string>start</string>
+             <string>Start</string>
             </property>
            </widget>
           </item>
@@ -95,8 +124,27 @@
               <height>30</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Bahnschrift</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;}
+
+QPushButton:hover{border-style: solid;
+border-color: #4C4E4D;}
+</string>
+            </property>
             <property name="text">
-             <string>clear</string>
+             <string>Clear board</string>
             </property>
            </widget>
           </item>
@@ -108,7 +156,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>30</height>
+              <height>15</height>
              </size>
             </property>
            </spacer>
@@ -127,8 +175,27 @@
               <height>30</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Bahnschrift</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;}
+
+QPushButton:hover{border-style: solid;
+border-color: #4C4E4D;}
+</string>
+            </property>
             <property name="text">
-             <string>clear_path</string>
+             <string>Clear path</string>
             </property>
            </widget>
           </item>
@@ -140,7 +207,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>20</height>
+              <height>15</height>
              </size>
             </property>
            </spacer>
@@ -148,7 +215,7 @@
           <item>
            <widget class="QLabel" name="ChoiseeLabel">
             <property name="text">
-             <string>Select algorithm:</string>
+             <string>Select an algorithm:</string>
             </property>
            </widget>
           </item>
@@ -162,13 +229,24 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>100</width>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Bahnschrift</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">QComboBox{
-    text-align: center;
+             <string notr="true">QComboBox {
+    border: 1px solid black;
+    border-radius: 3px;
+	background-color:rgba(255, 255, 255, 0)
 }</string>
             </property>
             <property name="placeholderText">
@@ -180,6 +258,16 @@
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
+          <property name="styleSheet">
+           <string>QPushButton{border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;}
+
+QPushButton:hover{border-style: solid;
+border-color: #4C4E4D;}
+</string>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -205,8 +293,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1325</width>
-     <height>21</height>
+     <width>1353</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
