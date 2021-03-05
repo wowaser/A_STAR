@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "node.h"
 #include "scene.h"
+#include <QDebug>
 using namespace std;
 
 class Node;
@@ -44,6 +45,8 @@ public:
 
     void change_button_state(bool enabled = true);
 
+    void set_edge_node(vector<int> pos, Node* node, QColor clr);
+
 private slots:
     void on_start_button_clicked();
     void on_clear_button_clicked();
@@ -52,21 +55,25 @@ private slots:
 
     void no_animation_path();
 
-    //void on_comboBox_currentIndexChanged(int index);
+    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui_;
-
     Scene* scene_;
 
-    const int SCENE_DIM = 450;
-
     Node* new_node;
-
     vector<vector<Node*>> grid_;
 
     bool path_ = false;
 
+    int SCENE_HEIGHT;
+    int SCENE_WIDTH;
+    int NUM_OF_ROWS;// = SCENE_HEIGHT / NODE_SIDE;
+    int NUM_OF_COLUMNS;// = SCENE_WIDTH / NODE_SIDE;
+
+protected:
+    void showEvent(QShowEvent *ev);
+    void resizeEvent(QResizeEvent *e);
 };
 
 #endif // MAINWINDOW_HH

@@ -9,7 +9,7 @@
 #include <vector>
 #include <cmath>
 
-const int NODE_SIDE = 5;
+const int NODE_SIDE = 13;
 using namespace std;
 
 class Node: public QObject, public QGraphicsRectItem

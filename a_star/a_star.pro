@@ -29,12 +29,10 @@ HEADERS += \
     scene.h
 
 FORMS += \
-    ../../Downloads/student_a_star_mainwindow.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    ../../Desktop/qt-unified-windows-x86-3.2.3-online (1).exe

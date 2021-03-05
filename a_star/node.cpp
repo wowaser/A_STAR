@@ -5,6 +5,7 @@ Node::Node(std::vector<int> coordinates, Node *parent):
     coordinates_(coordinates), parent_(parent), is_walkable(true)
 {
     this->setBrush(brush_);
+
 }
 
 QRectF Node::boundingRect() const{
@@ -13,12 +14,14 @@ QRectF Node::boundingRect() const{
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
-    if(option){}
-    if(widget){}
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    painter->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
 
     QRectF rect = boundingRect();
     painter->fillRect(rect, brush_);
-    //painter->drawRect(rect);
+    painter->drawRect(rect);
 
 }
 

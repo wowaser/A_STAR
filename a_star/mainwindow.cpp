@@ -1,10 +1,8 @@
 #include "mainwindow.h"
-#include "ui_student_a_star_mainwindow.h"
+#include "ui_mainwindow.h"
+
 
 using namespace std;
-
-const int SCENE_SIDE = 400;
-int NUM_OF_ROWS = SCENE_SIDE / NODE_SIDE;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,43 +11,31 @@ MainWindow::MainWindow(QWidget *parent) :
     ui_->setupUi(this);
 
     scene_ = new Scene(this);
-    ui_->graphicsView->setGeometry(10, 10, SCENE_SIDE+2, SCENE_SIDE+2);
     ui_->graphicsView->setScene(scene_);
 
-    scene_->setSceneRect(0,0,SCENE_SIDE, SCENE_SIDE);
+    //  Workaround of fetching view dimensions on initialization
+    //  (see showEvent)
+    this->show();
 
-    create_grid();
+    //  Handling start and finish nodes separately
+    vector<int> START = {5,5};
+    vector<int> FINISH = {NUM_OF_COLUMNS-6, NUM_OF_ROWS-6};
 
-    vector<int> position_start = {5, 5};
-    start_ = new Node(position_start);
-    scene_->addItem(start_);
-    start_->setRect(start_->boundingRect());
-    start_->setPos(position_start[0]*NODE_SIDE, position_start[1]*NODE_SIDE);
-    start_->update_color(Qt::blue);
-    start_->setFlag(QGraphicsRectItem::ItemIsSelectable);
-    start_->setFlag(QGraphicsRectItem::ItemIsMovable);
-    connect(start_, SIGNAL(node_moved()), this, SLOT(no_animation_path()));
+    start_ = new Node(START);
+    finish_ = new Node(FINISH);
 
-    vector<int> position_finish = {NUM_OF_ROWS-6, NUM_OF_ROWS-6};
-    finish_ = new Node(position_finish);
-    scene_->addItem(finish_);
-    finish_->setRect(finish_->boundingRect());
-    finish_->setPos(position_finish[0]*NODE_SIDE, position_finish[1]*NODE_SIDE);
-    finish_->update_color(Qt::green);
-    finish_->setFlag(QGraphicsRectItem::ItemIsSelectable);
-    finish_->setFlag(QGraphicsRectItem::ItemIsMovable);
-    connect(finish_, SIGNAL(node_moved()), this, SLOT(no_animation_path()));
+    set_edge_node(START, start_, "#8015A3");
+    set_edge_node(FINISH, finish_, "#E5E347");
 
     scene_->starting_node = start_;
     scene_->finish_node = finish_;
 
+    //  Setting up comboBox
     ui_->comboBox->addItem("A*");
     ui_->comboBox->addItem("Dijkstra");
     ui_->comboBox->addItem("Greedy BFS");
 
-    //ui_->textBrowser->setText("A* guarantees the shortest path");
-
-
+    ui_->textBrowser->setText("A* guarantees the shortest path");
 }
 
 
@@ -58,9 +44,39 @@ MainWindow::~MainWindow()
     delete ui_;
 }
 
+void MainWindow::showEvent(QShowEvent *ev){
+    QMainWindow::showEvent(ev);
+
+    SCENE_HEIGHT = ui_->graphicsView->height();
+    SCENE_WIDTH = ui_->graphicsView->width();
+    NUM_OF_ROWS = SCENE_HEIGHT / NODE_SIDE;
+    NUM_OF_COLUMNS = SCENE_WIDTH / NODE_SIDE;
+
+    create_grid();
+
+}
+
+void MainWindow::resizeEvent(QResizeEvent *e){
+    QMainWindow::resizeEvent(e);
+    ui_->graphicsView->fitInView(ui_->graphicsView->scene()->itemsBoundingRect(), Qt::KeepAspectRatio);
+
+    scene_->setSceneRect(scene_->itemsBoundingRect());
+}
+
+void MainWindow::set_edge_node(vector<int> pos, Node *node, QColor clr){
+    scene_->addItem(node);
+    node->setRect(node->boundingRect());
+    node->setPos(pos[0]*NODE_SIDE, pos[1]*NODE_SIDE);
+    node->update_color(clr);
+    node->setFlag(QGraphicsRectItem::ItemIsSelectable);
+    node->setFlag(QGraphicsRectItem::ItemIsMovable);
+    connect(node, SIGNAL(node_moved()), this, SLOT(no_animation_path()));
+}
+
+
 void MainWindow::create_grid(){
     // creating a 2-D vector
-    for(int i = 0; i<NUM_OF_ROWS;++i){
+    for(int i = 0; i<NUM_OF_COLUMNS;++i){
         vector<Node*> single_row;
         for(int j = 0;j<NUM_OF_ROWS;++j){
             vector<int> position = {i, j};
@@ -96,7 +112,7 @@ Node* MainWindow::get_current_node(vector<Node *>& open_list){
 }
 
 void MainWindow::a_star(bool is_animated){
-    //on_comboBox_currentIndexChanged(ui_->comboBox->currentIndex());
+    on_comboBox_currentIndexChanged(ui_->comboBox->currentIndex());
     // init
     change_button_state(false);
     start_->update_h(finish_);
@@ -164,14 +180,14 @@ void MainWindow::a_star(bool is_animated){
                         QTest::qWait(1);
                     }
                     child->update_color(Qt::cyan);
-                    open_list.push_back(child);
+                    //open_list.push_back(child);
                 }
             }
         }
     }
     change_button_state(true);
     path_ = true;
-    //ui_->textBrowser->setText("No path");
+    ui_->textBrowser->setText("No path");
     return;
 }
 
@@ -278,7 +294,7 @@ void MainWindow::no_animation_path(){
         a_star(false);
     }
 }
-/*
+
 void MainWindow::on_comboBox_currentIndexChanged(int index){
     if(index == 0){
         ui_->textBrowser->setText("A* guarantees the shortest path");
@@ -290,4 +306,5 @@ void MainWindow::on_comboBox_currentIndexChanged(int index){
         ui_->textBrowser->setText("Greedy BFS does not guarantee the shortest path");
     }
 }
-*/
+
+
