@@ -25,8 +25,6 @@ public:
 
     std::vector<int> coordinates_;
 
-    QPointF scene_pos_;
-
     Node* parent_;
 
     bool is_walkable;
@@ -49,6 +47,9 @@ public:
     void update_color(QColor color);
 
     void clear();
+
+    QPointF anchor;
+    void setAnchor(QPointF anc);
 
 public slots:
     void modify_obstacle(QPointF& pos, Qt::MouseButton& btn);

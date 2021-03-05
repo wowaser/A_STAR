@@ -59,6 +59,10 @@ void Node::clear(){
 
 }
 
+void Node::setAnchor(QPointF anc){
+    anchor = anc;
+}
+
 void Node::modify_obstacle(QPointF &pos, Qt::MouseButton &btn){
     int mouse_row = floor(pos.x()/NODE_SIDE);
     int mouse_column = floor(pos.y()/NODE_SIDE);
@@ -89,7 +93,7 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     QList<QGraphicsItem*> col_items = collidingItems();
     if(!col_items.empty()){
         Node* host_node = nullptr;
-        // algorithm for finding the closest item
+        // algorithm for finding the closest node
         qreal shortest_dist = 10000;
         for(auto item:col_items){
             if(dynamic_cast<Node*>(item) != nullptr){
@@ -103,10 +107,14 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
         }
         host_node->is_walkable = true;
         this->setPos(host_node->pos());
+        this->anchor = host_node->pos();
         this->row_ = host_node->row_;
         this->column_ = host_node->column_;
         this->coordinates_ = {row_, column_};
 
+    }
+    else{
+        this->setPos(anchor);
     }
     emit node_moved();
     QGraphicsRectItem::mouseReleaseEvent(event);

@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scene_->starting_node = start_;
     scene_->finish_node = finish_;
 
+
     //  Setting up comboBox
     ui_->comboBox->addItem("A*");
     ui_->comboBox->addItem("Dijkstra");
@@ -79,6 +80,7 @@ void MainWindow::set_edge_node(vector<int> pos, Node *node, QColor clr){
     node->setFlag(QGraphicsRectItem::ItemIsSelectable);
     node->setFlag(QGraphicsRectItem::ItemIsMovable);
     connect(node, SIGNAL(node_moved()), this, SLOT(no_animation_path()));
+    node->setAnchor(node->pos());
 }
 
 
