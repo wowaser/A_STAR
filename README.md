@@ -1,4 +1,4 @@
-This is my visualization of a few pathfinding algorithms, mainly A*. 
+This is my visualization of a few pathfinding algorithms, mainly derivatives of A*. 
 
 
 Draw obstacles with lmb, erase with rmb. 
